@@ -12,10 +12,7 @@ const app = express();
 ===================================================== */
 
 app.use(
-  cors({
-    origin: "https://campuscoin123.netlify.app",
-    credentials: true,
-  })
+  cors()
 );
 
 app.use(express.json());
