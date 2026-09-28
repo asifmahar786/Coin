@@ -4,18 +4,34 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 
 dotenv.config();
-connectDB();
 
 const app = express();
 
+// Middleware
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/api/health", (req, res) => {
-  res.status(200).json({ status: "ok", message: "CampusCoin API server running" });
+// MongoDB connection
+connectDB();
+
+// Health check
+app.get("/", (req, res) => {
+  res.status(200).json({
+    success: true,
+    message: "CampusCoin API server running",
+  });
 });
 
+app.get("/api/health", (req, res) => {
+  res.status(200).json({
+    success: true,
+    status: "ok",
+    message: "CampusCoin API server running",
+  });
+});
+
+// Routes
 app.use("/api/auth", require("./routes/authRoutes"));
 app.use("/api/transactions", require("./routes/transactionRoutes"));
 app.use("/api/categories", require("./routes/categoryRoutes"));
@@ -26,22 +42,38 @@ app.use("/api/ai", require("./routes/aiRoutes"));
 app.use("/api/users", require("./routes/userRoutes"));
 app.use("/api/admin", require("./routes/adminRoutes"));
 
+// 404
 app.use((req, res) => {
-  res.status(404).json({ success: false, message: "Route not found" });
-});
-
-app.use((err, req, res, next) => {
-  const statusCode = res.statusCode && res.statusCode !== 200 ? res.statusCode : 500;
-  
-  res.status(statusCode).json({
+  res.status(404).json({
     success: false,
-    message: err.message || "Internal Server Error",
-    ...(process.env.NODE_ENV === "development" && { stack: err.stack }),
+    message: "Route not found",
   });
 });
 
-const PORT = process.env.PORT || 5000;
+// Error handler
+app.use((err, req, res, next) => {
+  const statusCode =
+    res.statusCode && res.statusCode !== 200
+      ? res.statusCode
+      : 500;
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+  res.status(statusCode).json({
+    success: false,
+    message: err.message || "Internal Server Error",
+    ...(process.env.NODE_ENV === "development" && {
+      stack: err.stack,
+    }),
+  });
 });
+
+// Local development only
+if (process.env.NODE_ENV !== "production") {
+  const PORT = process.env.PORT || 5000;
+
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+
+// Vercel
+module.exports = app;
