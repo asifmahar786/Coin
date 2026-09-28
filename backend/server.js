@@ -118,54 +118,6 @@ app.use(async (req, res, next) => {
   }
 });
 
-/* =====================================================
-   ROUTES
-===================================================== */
-
-app.use(
-  "/api/auth",
-  require("./routes/authRoutes")
-);
-
-app.use(
-  "/api/transactions",
-  require("./routes/transactionRoutes")
-);
-
-app.use(
-  "/api/categories",
-  require("./routes/categoryRoutes")
-);
-
-app.use(
-  "/api/budgets",
-  require("./routes/budgetRoutes")
-);
-
-app.use(
-  "/api/insights",
-  require("./routes/insightRoutes")
-);
-
-app.use(
-  "/api/reports",
-  require("./routes/reportRoutes")
-);
-
-app.use(
-  "/api/ai",
-  require("./routes/aiRoutes")
-);
-
-app.use(
-  "/api/users",
-  require("./routes/userRoutes")
-);
-
-app.use(
-  "/api/admin",
-  require("./routes/adminRoutes")
-);
 
 /* =====================================================
    404
