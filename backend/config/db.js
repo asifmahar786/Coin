@@ -1,17 +1,35 @@
-const mongoose = require('mongoose');
+const express = require("express");
+const mongoose = require("mongoose");
 
-const connectDB = async () => {
+const app = express();
+
+app.get("/", async (req, res) => {
   try {
     if (!process.env.MONGO_URI) {
-      throw new Error('MONGO_URI is not defined in .env');
+      return res.status(500).json({
+        success: false,
+        message: "MONGO_URI is missing in Vercel Environment Variables"
+      });
     }
 
-    const conn = await mongoose.connect(process.env.MONGO_URI);
-    console.log(`MongoDB connected: ${conn.connection.host}`);
-  } catch (error) {
-    console.error(`MongoDB connection error: ${error.message}`);
-    process.exit(1);
-  }
-};
+    if (mongoose.connection.readyState !== 1) {
+      await mongoose.connect(process.env.MONGO_URI);
+    }
 
-module.exports = connectDB;
+    res.status(200).json({
+      success: true,
+      message: "Express + MongoDB working on Vercel",
+      mongoStatus: mongoose.connection.readyState,
+      host: mongoose.connection.host
+    });
+
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "MongoDB connection failed",
+      error: error.message
+    });
+  }
+});
+
+module.exports = app;

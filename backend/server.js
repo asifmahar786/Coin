@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const dotenv = require("dotenv");
-const connectDB = require("./config/db");
+
 
 dotenv.config();
 
@@ -13,7 +13,37 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // MongoDB connection
-connectDB();
+app.get("/", async (req, res) => {
+  try {
+    if (!process.env.MONGO_URI) {
+      return res.status(500).json({
+        success: false,
+        message: "MONGO_URI is missing",
+      });
+    }
+
+    if (mongoose.connection.readyState !== 1) {
+      await mongoose.connect(process.env.MONGO_URI);
+    }
+
+    res.status(200).json({
+      success: true,
+      message: "Express + MongoDB working",
+      mongoStatus: mongoose.connection.readyState,
+      host: mongoose.connection.host,
+      database: mongoose.connection.name,
+    });
+
+  } catch (error) {
+    console.error("MongoDB connection error:", error);
+
+    res.status(500).json({
+      success: false,
+      message: "MongoDB connection failed",
+      error: error.message,
+    });
+  }
+});
 
 // Health check
 app.get("/", (req, res) => {
