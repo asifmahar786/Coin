@@ -1,0 +1,198 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap');
+
+:root {
+  color-scheme: light;
+
+  --c-primary-50: #ECFDF5;
+  --c-primary-100: #A7E8CD;
+  --c-primary-500: #12B76A;
+  --c-primary-600: #0E9A5A;
+  --c-primary-700: #0B7A47;
+
+  --c-success-50: #F0FDF4;
+  --c-success-100: #DCFCE7;
+  --c-success-500: #16A34A;
+  --c-success-600: #15803D;
+
+  --c-danger-50: #FEF2F2;
+  --c-danger-100: #FEE2E2;
+  --c-danger-500: #DC2626;
+  --c-danger-600: #B91C1C;
+
+  --c-warning-50: #FFFBEB;
+  --c-warning-100: #FEF3C7;
+  --c-warning-500: #D97706;
+  --c-warning-600: #B45309;
+
+  --c-smart-50: #F5F3FF;
+  --c-smart-100: #EDE9FE;
+  --c-smart-500: #7C3AED;
+  --c-smart-600: #6D28D9;
+
+  --c-slate-50: #F8FAFC;
+  --c-slate-100: #F1F5F9;
+  --c-slate-200: #E2E8F0;
+  --c-slate-300: #CBD5E1;
+  --c-slate-400: #94A3B8;
+  --c-slate-500: #64748B;
+  --c-slate-600: #475569;
+  --c-slate-700: #334155;
+  --c-slate-800: #1E293B;
+  --c-slate-900: #0F172A;
+
+  --radius-card: 14px;
+}
+
+html.dark {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: var(--c-slate-50);
+  color: var(--c-slate-800);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+html.dark body {
+  background: var(--c-slate-900);
+  color: var(--c-slate-100);
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Poppins', sans-serif;
+  margin: 0;
+}
+
+.card {
+  background: #fff;
+  border-radius: var(--radius-card);
+  box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--c-slate-100);
+  padding: 1.25rem;
+}
+html.dark .card {
+  background: var(--c-slate-800);
+  border-color: var(--c-slate-700);
+}
+
+.btn-primary,
+.btn-secondary,
+.btn-danger {
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease;
+  font-size: 0.9375rem;
+}
+.btn-primary:disabled,
+.btn-secondary:disabled,
+.btn-danger:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.btn-primary {
+  background: var(--c-primary-500);
+  color: #fff;
+}
+.btn-primary:hover:not(:disabled) {
+  background: var(--c-primary-600);
+}
+
+.btn-secondary {
+  background: var(--c-slate-100);
+  color: var(--c-slate-700);
+}
+.btn-secondary:hover:not(:disabled) {
+  background: var(--c-slate-200);
+}
+html.dark .btn-secondary {
+  background: var(--c-slate-700);
+  color: var(--c-slate-100);
+}
+html.dark .btn-secondary:hover:not(:disabled) {
+  background: var(--c-slate-600);
+}
+
+.btn-danger {
+  background: var(--c-danger-500);
+  color: #fff;
+}
+.btn-danger:hover:not(:disabled) {
+  background: var(--c-danger-600);
+}
+
+.input-field {
+  width: 100%;
+  border: 1px solid var(--c-slate-300);
+  background: #fff;
+  border-radius: 0.5rem;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.875rem;
+  color: inherit;
+  font-family: inherit;
+}
+.input-field:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--c-primary-500);
+  border-color: transparent;
+}
+html.dark .input-field {
+  border-color: var(--c-slate-600);
+  background: var(--c-slate-800);
+}
+
+.label {
+  display: block;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--c-slate-600);
+  margin-bottom: 0.25rem;
+}
+html.dark .label {
+  color: var(--c-slate-300);
+}
+
+.badge-income,
+.badge-expense,
+.badge-smart {
+  padding: 0.125rem 0.5rem;
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  display: inline-block;
+}
+.badge-income {
+  background: var(--c-success-50);
+  color: var(--c-success-600);
+}
+html.dark .badge-income {
+  background: rgba(22, 163, 74, 0.1);
+}
+.badge-expense {
+  background: var(--c-danger-50);
+  color: var(--c-danger-600);
+}
+html.dark .badge-expense {
+  background: rgba(220, 38, 38, 0.1);
+}
+.badge-smart {
+  background: var(--c-smart-50);
+  color: var(--c-smart-600);
+}
+html.dark .badge-smart {
+  background: rgba(124, 58, 237, 0.1);
+}
+
+:focus-visible {
+  outline: 2px solid #12B76A;
+  outline-offset: 2px;
+}

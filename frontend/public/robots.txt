@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /transactions
+Disallow: /budget
+Disallow: /reports
+Disallow: /admin
+
+Sitemap: https://campuscoin.app/sitemap.xml
