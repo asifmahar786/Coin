@@ -11,7 +11,12 @@ const app = express();
    MIDDLEWARE
 ===================================================== */
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "https://campuscoin123.netlify.app",
+    credentials: true,
+  })
+);
 
 app.use(express.json());
 
